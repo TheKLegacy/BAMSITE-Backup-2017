@@ -366,6 +366,24 @@ console.log(pokemon);
       }
       }
       myTable += "</table>"
+      myTable = myTable.replace(/Bug/g,"<img src=\"Bug.png\">");
+      myTable = myTable.replace(/Dark/g,"<img src=\"Dark.png\">");
+      myTable = myTable.replace(/Dragon/g,"<img src=\"Dragon.png\">");
+      myTable = myTable.replace(/Electric/g,"<img src=\"Electric.png\">");
+      myTable = myTable.replace(/Fairy/g,"<img src=\"Fairy.png\">");
+      myTable = myTable.replace(/Fighting/g,"<img src=\"Fighting.png\">");
+      myTable = myTable.replace(/Fire/g,"<img src=\"Fire.png\">");
+      myTable = myTable.replace(/Flying/g,"<img src=\"Flying.png\">");
+      myTable = myTable.replace(/Ghost/g,"<img src=\"Ghost.png\">");
+      myTable = myTable.replace(/Ground/g,"<img src=\"Ground.png\">");
+      myTable = myTable.replace(/Ice/g,"<img src=\"Ice.png\">");
+      myTable = myTable.replace(/Normal/g,"<img src=\"Normal.png\">");
+      myTable = myTable.replace(/Poison/g,"<img src=\"Poison.png\">");
+      myTable = myTable.replace(/Psychic/g,"<img src=\"Psychic.png\">");
+      myTable = myTable.replace(/Rock/g,"<img src=\"Rock.png\">");
+      myTable = myTable.replace(/Steel/g,"<img src=\"Steel.png\">");
+      myTable = myTable.replace(/Water/g,"<img src=\"Water.png\">");
+      myTable = myTable.replace(/Grass/g,"<img src=\"Grass.png\">");
       document.getElementById("table").innerHTML = myTable;
       }
 
@@ -405,7 +423,7 @@ console.log(pokemon);
 
       pageNum = x.id.substring(x.id.length-2,x.id.length-1);
 
-      var myTable = "<table class=\"viewer\"><tr><th>Name</th><th>Type</th><th>Catogory</th><th>Power</th><th>Accuracy</th><th>PP</th><th>Effect</th></tr>"
+      var myTable = "<table class=\"viewer\"><tr><th>Name</th><th>Type</th><th>Category</th><th>Power</th><th>Accuracy</th><th>PP</th><th>Effect</th></tr>"
       for(i = 0; i < moves[0].length; i++){
       for(j = 0; j < pokemon[13][selectedPokemon[pageNum-1]].length;j++){
       console.log(pokemon[13][selectedPokemon[pageNum-1]][j]);
@@ -413,6 +431,27 @@ console.log(pokemon);
       || moves[6][i].toLowerCase().indexOf(x.value.toLowerCase())>=0)){
         myTable+="<tr onclick=\"addMove"+x.id.substring(x.id.length-1)+"("+i+")\">";
         myTable+="<td>"+moves[0][i]+"</td>";
+        moves[1][i] = moves[1][i].replace(/Bug/g,"<img src=\"Bug.png\">");
+        moves[1][i] = moves[1][i].replace(/Dark/g,"<img src=\"Dark.png\">");
+        moves[1][i] = moves[1][i].replace(/Dragon/g,"<img src=\"Dragon.png\">");
+        moves[1][i] = moves[1][i].replace(/Electric/g,"<img src=\"Electric.png\">");
+        moves[1][i] = moves[1][i].replace(/Fairy/g,"<img src=\"Fairy.png\">");
+        moves[1][i] = moves[1][i].replace(/Fighting/g,"<img src=\"Fighting.png\">");
+        moves[1][i] = moves[1][i].replace(/Fire/g,"<img src=\"Fire.png\">");
+        moves[1][i] = moves[1][i].replace(/Flying/g,"<img src=\"Flying.png\">");
+        moves[1][i] = moves[1][i].replace(/Ghost/g,"<img src=\"Ghost.png\">");
+        moves[1][i] = moves[1][i].replace(/Ground/g,"<img src=\"Ground.png\">");
+        moves[1][i] = moves[1][i].replace(/Ice/g,"<img src=\"Ice.png\">");
+        moves[1][i] = moves[1][i].replace(/Normal/g,"<img src=\"Normal.png\">");
+        moves[1][i] = moves[1][i].replace(/Poison/g,"<img src=\"Poison.png\">");
+        moves[1][i] = moves[1][i].replace(/Psychic/g,"<img src=\"Psychic.png\">");
+        moves[1][i] = moves[1][i].replace(/Rock/g,"<img src=\"Rock.png\">");
+        moves[1][i] = moves[1][i].replace(/Steel/g,"<img src=\"Steel.png\">");
+        moves[1][i] = moves[1][i].replace(/Water/g,"<img src=\"Water.png\">");
+        moves[1][i] = moves[1][i].replace(/Grass/g,"<img src=\"Grass.png\">");
+        moves[2][i] = moves[2][i].replace(/Physical/g,"<img src=\"Physical.png\">");
+        moves[2][i] = moves[2][i].replace(/Special/g,"<img src=\"Special.png\">");
+        moves[2][i] = moves[2][i].replace(/Status/g,"<img src=\"Status.png\">");
         myTable+="<td>"+moves[1][i]+"</td>";
         myTable+="<td>"+moves[2][i]+"</td>";
         myTable+="<td>"+moves[3][i]+"</td>";
