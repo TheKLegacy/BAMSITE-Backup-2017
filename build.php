@@ -355,7 +355,7 @@
       function pokemonTable(x){
 console.log(pokemon);
       pageNum = x.id.substring(x.id.length-1);
-      var myTable = "<table class=\"viewer\" ><tr><th>Name</th><th>Type 1</th><th>Type 2</th><th>HP</th><th>Attack</th><th>Defense</th><th>Special Attack</th> <th>Special Defense</th><th>Speed</th><th>BST</th><th>Ability 1</th><th>Ability 2</th><th>Ability 3</th></tr>"
+      var myTable = "<table class=\"viewer\" ><tr><th>Name</th><th>Type 1</th><th>Type 2</th><th>HP</th><th>Atk</th><th>Def</th><th>Sp. Atk</th> <th>Sp. Def</th><th>Spe</th><th>BST</th><th>Ability 1</th><th>Ability 2</th><th>Ability 3</th></tr>"
       for(i = 0; i < pokemon[0].length; i++){
       if(x.value == null || pokemon[0][i].toLowerCase().indexOf(x.value.toLowerCase())>=0||pokemon[1][i].toLowerCase().indexOf(x.value.toLowerCase())>=0||pokemon[2][i].toLowerCase().indexOf(x.value.toLowerCase())>=0|| pokemon[10][i].toLowerCase().indexOf(x.value.toLowerCase())>=0||pokemon[11][i].toLowerCase().indexOf(x.value.toLowerCase())>=0||pokemon[12][i].toLowerCase().indexOf(x.value.toLowerCase())>=0){
       myTable+="<tr onmouseover=\"makeBorder(this)\" onmouseoout=\"removeBorder(this)\" onclick=\"addPokemon("+i+")\">";
