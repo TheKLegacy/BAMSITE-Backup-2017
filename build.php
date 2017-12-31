@@ -385,6 +385,7 @@ console.log(pokemon);
       myTable = myTable.replace(/Water/g,"<img src=\"Water.png\">");
       myTable = myTable.replace(/Grass/g,"<img src=\"Grass.png\">");
       document.getElementById("table").innerHTML = myTable;
+
       }
 
 
@@ -474,6 +475,7 @@ console.log(pokemon);
       selectedAbility2[pageNum-1]  = pokemon[11][p];
       selectedAbility3[pageNum-1]  = pokemon[12][p];
       document.getElementById("table").innerHTML = '';
+      document.getElementById("plabel" +  pageNum).innerHTML = pokemon[0][p];
       assignStatTotals();
       }
 
@@ -858,13 +860,13 @@ document.getElementById("output").value = finalTeam;
       <div id="form_container">
          <h1><a>Untitled Form</a></h1>
          <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'p1')">Pokemon 1</button>
-            <button class="tablinks" onclick="openCity(event, 'p2')">Pokemon 2</button>
-            <button class="tablinks" onclick="openCity(event, 'p3')">Pokemon 3</button>
-            <button class="tablinks" onclick="openCity(event, 'p4')">Pokemon 4</button>
-            <button class="tablinks" onclick="openCity(event, 'p5')">Pokemon 5</button>
-            <button class="tablinks" onclick="openCity(event, 'p6')">Pokemon 6</button>
-            <button class="tablinks" onclick="openCity(event, 'p7')">Import/Export</button>
+            <button id="plabel1" class="tablinks" onclick="openCity(event, 'p1')">Pokemon 1</button>
+            <button id="plabel2" class="tablinks" onclick="openCity(event, 'p2')">Pokemon 2</button>
+            <button id="plabel3" class="tablinks" onclick="openCity(event, 'p3')">Pokemon 3</button>
+            <button id="plabel4" class="tablinks" onclick="openCity(event, 'p4')">Pokemon 4</button>
+            <button id="plabel5" class="tablinks" onclick="openCity(event, 'p5')">Pokemon 5</button>
+            <button id="plabel6" class="tablinks" onclick="openCity(event, 'p6')">Pokemon 6</button>
+            <button id="plabel7" class="tablinks" onclick="openCity(event, 'p7')">Import/Export</button>
          </div>
          <div id="p1" class="tabcontent">
             <form id="form_64191" class="appnitro"  method="post" action="">
