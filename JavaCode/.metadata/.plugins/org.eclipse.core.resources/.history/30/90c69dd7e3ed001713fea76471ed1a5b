@@ -7,7 +7,6 @@ public class ScriptRunner {
 		DataSheet pokemon = new DataSheet("BAM Data - Pokemon.csv");
 		DataSheet ability = new DataSheet("BAM Data - Abilities.csv");
 		//printDebug(moves);
-		System.out.println(makeLearnsetJS(moveset));
 	}
 	
 	static void printDebug(DataSheet d){
@@ -30,12 +29,12 @@ public class ScriptRunner {
 					lSet += " {learnset: {\r\n" + "		";
 				}else {
 					lSet += l.getD().get(r).get(c).replaceAll("[^A-Za-z]+", "").toLowerCase();
-					lSet += ": [\"1L1\"],\r\n" + "		";
+					lSet += ": [\"5L1\"],\r\n" + "		";
 				}
 			}
 			lSet += "}},\r\n" + "	";
 		}
-		return lSet + "\r\n" + "};";
+		return lSet;
 	}
 
 }
