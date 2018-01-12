@@ -869,7 +869,7 @@ document.getElementById("output").value = finalTeam;
             <button id="plabel5" class="tablinks" onclick="openCity(event, 'p5')">Pokemon 5</button>
             <button id="plabel6" class="tablinks" onclick="openCity(event, 'p6')">Pokemon 6</button>
             <button id="plabel7" class="tablinks" onclick="openCity(event, 'p7')">Import/Export</button>
-			<button id="plabel7" class="tablinks" onclick="window.location.href='index4.html'">Import/Export</button>
+			<button id="plabel7" class="tablinks" onclick="window.location.href='index4.html'">Return Home</button>
          </div>
          <div id="p1" class="tabcontent">
             <form id="form_64191" class="appnitro"  method="post" action="">
