@@ -178,7 +178,7 @@ img: {
 <body>
 <ul>
 <font size="4%">
-  <li><a href="http://www.pokemonperfect.com/forums/index.php?threads/build-a-metagame-bam-fakemon-metagame-megathread.4688/">Home</a></li>
+  <li><a href="index4.html">Home</a></li>
   <li><a href="index.php">Pok&eacutemon</a></li>
   <li><a href="moves.php">Moves</a></li>
   <li><a class="active" href="item.php">Items</a></li>

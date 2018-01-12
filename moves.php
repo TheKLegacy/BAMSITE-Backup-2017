@@ -212,7 +212,7 @@ img: {
 <body>
 <ul>
 <font size="4%">
-  <li><a href="http://projectbam.proboards.com/">Home</a></li>
+  <li><a href="index4.html">Home</a></li>
   <li><a href="index.php">Pok&eacutemon</a></li>
   <li><a class="active" href="moves.php">Moves</a></li>
   <li><a href="item.php">Items</a></li>
