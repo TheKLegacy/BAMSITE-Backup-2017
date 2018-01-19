@@ -42,8 +42,8 @@ public class ScriptRunner {
 		String PSet = "'use strict';\r\n" + 
 				"\r\n" + 
 				"exports.BattlePokedex = {";
-		for(int r = 0; r < p.getD().size();r++) {
-			for(int c = 0; c < p.getD().get(r).size();c++) {
+		for(int r = 0; r < l.getD().size();r++) {
+			for(int c = 0; c < l.getD().get(r).size();c++) {
 			}
 		}
 		

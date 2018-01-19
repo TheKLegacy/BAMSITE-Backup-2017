@@ -37,18 +37,5 @@ public class ScriptRunner {
 		}
 		return lSet + "\r\n" + "};";
 	}
-	
-	static String makePokedexJS(DataSheet p) {
-		String PSet = "'use strict';\r\n" + 
-				"\r\n" + 
-				"exports.BattlePokedex = {";
-		for(int r = 0; r < p.getD().size();r++) {
-			for(int c = 0; c < p.getD().get(r).size();c++) {
-			}
-		}
-		
-		
-		return "";
-	}
 
 }
