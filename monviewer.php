@@ -486,9 +486,24 @@ for(var i = 0; i < pokemon[0].length; i++){
     theContent = theContent.replace(/Steel/g,"<img style=\"width: 64px\" src=\"Steel.png\">");
     theContent = theContent.replace(/Water/g,"<img style=\"width: 64px\" src=\"Water.png\">");
     theContent = theContent.replace(/Grass/g,"<img style=\"width: 64px\" src=\"Grass.png\">");
-    theContent += "<br><h3>"+pokemon[3][i]+" "+pokemon[4][i]+" "+pokemon[5][i];
-    theContent = theContent.replace(/-/g,">");
-    theContent += "</h3>";
+    theContent += "<br><h4>Abilities: "+pokemon[10][i]+" / "+pokemon[11][i]+" / "+pokemon[12][i];
+    theContent = theContent.replace(/\/ -/g,"");
+    //stats
+    var statsview = ["HP","Atk","Def","SpA","SpD","Spe"];
+    for(var j = 3; j < 9; j++){
+    theContent += "</h4><br><h5>"+statsview[j-3]+": "+pokemon[j][i];
+    var img = "red";
+    if(pokemon[j][i] >= 70)
+    img = "orange";
+    if(pokemon[j][i] >= 90)
+    img = "green"
+    if(pokemon[j][i] >= 110)
+    img = "yellow";
+    if(pokemon[j][i] >= 125)
+    img = "blue";
+    theContent+=" <img style=\" height: 16px; width: "+pokemon[j][i]*3+"\"px; src=\""+img+".png\">";
+
+  }
     document.getElementById("content").innerHTML=theContent;
 
 
