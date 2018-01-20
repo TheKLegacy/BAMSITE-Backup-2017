@@ -5,42 +5,50 @@
 <link href='https://fonts.googleapis.com/css?family=Allerta' rel='stylesheet'>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <script src="sorttable.js"></script>
+
 <script>
- 
+  function saveMonValue(p){
+    localStorage.setItem("pokemonName",p.innerText);
+    window.location.href = "monviewer.php";
+  }
+
+</script>
+<script>
+
 jQuery(document).ready(function() {
- 
+
 var offset = 250;
- 
+
 var duration = 300;
- 
+
 jQuery(window).scroll(function() {
- 
+
 if (jQuery(this).scrollTop() > offset) {
- 
+
 jQuery(‘.back-to-top’).fadeIn(duration);
- 
+
 } else {
- 
+
 jQuery(‘.back-to-top’).fadeOut(duration);
- 
+
 }
- 
+
 });
- 
+
 &nbsp;
- 
+
 jQuery(‘.back-to-top’).click(function(event) {
- 
+
 event.preventDefault();
- 
+
 jQuery(‘html, body’).animate({scrollTop: 0}, duration);
- 
+
 return false;
- 
+
 })
- 
+
 });
- 
+
 </script>
 
 <link rel="stylesheet" id="font-awesome-css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" media="screen">
@@ -83,7 +91,7 @@ input {
 	border: 2px solid #3086C2;
     border-radius: 4px;
 }
-h3 { 
+h3 {
     display: block;
     font-size: 26px;
     margin-bottom: 12px;
@@ -98,21 +106,21 @@ table.sortable thead {
     color:#666666;
     font-weight: bold;
     cursor: default;
-	
-	
+
+
 }
 
-table { 
+table {
 color: #333;
-font-family: Helvetica, Arial, sans-serif; 
-border-collapse: 
-collapse; border-spacing: 0; 
+font-family: Helvetica, Arial, sans-serif;
+border-collapse:
+collapse; border-spacing: 0;
 box-shadow: 12px 12px 7px #888888;
 }
 
-td, th { 
+td, th {
 border: 1px solid transparent; /* No more visible border */
-height: 30px; 
+height: 30px;
 
 }
 
@@ -131,11 +139,11 @@ text-align: center;
 
 
 
-/* Cells in even rows (2,4,6...) are one color */ 
-tr:nth-child(even) td { background: #EBEBF7; }   
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td { background: #EBEBF7; }
 
-/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */ 
-tr:nth-child(odd) td { background: #FEFEFE; }  
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+tr:nth-child(odd) td { background: #FEFEFE; }
 
 
 
@@ -177,10 +185,10 @@ li a.active {
 li a:hover:not(.active) {
     background-color: black;
     color: #3086C2;
-	
+
 	font-weight: bold;
 	background-image: linear-gradient(to bottom right, black 0%,white 200%), url('black.png');
-	
+
 }
 
 
@@ -197,26 +205,26 @@ img: {
 
 .parallax {
     /* The image used */
-    
+
     background-image: url("img.jpg");
     /* Set a specific height */
-    min-height: 500px; 
+    min-height: 500px;
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
+
 }
 </style>
 
 <style>
-    
+
     table {
     border-collapse: collapse;
-    
-    
+
+
 }
 
 td{
@@ -228,7 +236,7 @@ table, th, td {
 }
 
 
-    
+
 </style>
 
 </head>
@@ -245,7 +253,7 @@ table, th, td {
   <li><a href="tips.php">Tips & Help</a></li>
   </font>
 </ul><center>
-    
+
     <style>td:first-child + td { font-weight: bold;} /* third column */
 td:first-child + td + td { font-weight: bold;} /* third column */
 td:first-child + td + td+ td { font-weight: bold;} /* third column */
@@ -287,12 +295,12 @@ td:first-child + td + td + td+ td+ td+ td+ td+ td+ td{ font-weight: bold;} /* th
 </script>
 
 	<script>
-	
+
 	//this is the real copy
-	
-		var theData = <?php $url='https://docs.google.com/spreadsheets/d/e/2PACX-1vQze6QQywdWXeGwQBmGpsoZEa48HuBGW6kPDG7qu9T9S6egprBVsj9h5JzBNlmVladUAkUsmxBFdI1V/pub?gid=804537216&single=true&output=csv'; 
+
+		var theData = <?php $url='https://docs.google.com/spreadsheets/d/e/2PACX-1vQze6QQywdWXeGwQBmGpsoZEa48HuBGW6kPDG7qu9T9S6egprBVsj9h5JzBNlmVladUAkUsmxBFdI1V/pub?gid=804537216&single=true&output=csv';
 				if (($handle = fopen($url, "r")) !== FALSE) {
-					$result=""; 
+					$result="";
 					while (($data = fgetcsv($handle, 100000, ",")) !== FALSE){
 						$totalrows = count($data);
 						for ($row=0; $row<=$totalrows; $row++){
@@ -304,7 +312,7 @@ td:first-child + td + td + td+ td+ td+ td+ td+ td+ td{ font-weight: bold;} /* th
 					fclose($handle);
 				}
 				echo json_encode($result, JSON_HEX_TAG);?>;
-				
+
 		var items = [
         ["Grass~", "\#78c850"],
         ["Fire~", "\#f08030"],
@@ -351,7 +359,7 @@ td:first-child + td + td + td+ td+ td+ td+ td+ td+ td{ font-weight: bold;} /* th
 						    table += "<td ";
 						}
 						if(i == 1 || i==2){
-						    
+
 						    var colorCode;
 						    for(k = 0;k < items.length;k++)
 						    {
@@ -362,14 +370,17 @@ td:first-child + td + td + td+ td+ td+ td+ td+ td+ td{ font-weight: bold;} /* th
 						    }
 						    table+="style=\"background-color:"+colorCode+"\" ";
 						}
-						
+            if(i == 0){
+              table +=" onmousedown=\"saveMonValue(this)\"";
+            }
+
 						if(i > 2 && i < 10){
 						    var num = (i == 9) ? newData.substring(0,newData.length-1)-400 : newData.substring(0,newData.length-1);
 						    console.log(num)
 						    var red = 0;
 						    var green = 0;
 						    var blue = 0;
-						    
+
 						    if(num <=60){
 						        red = 230;
 						        green = 100 * ((num)/60);
@@ -395,19 +406,19 @@ td:first-child + td + td + td+ td+ td+ td+ td+ td+ td{ font-weight: bold;} /* th
 						        green = 200;
 						        blue = 250;
 						    }
-						    
+
 						    blue = Math.round(blue);
 						    red = Math.round(red);
 						    green = Math.round(green);
 						    blue1 = Math.round(blue*.75);
 						    red1 = Math.round(red*.75);
 						    green1 = Math.round(green*.75);
-						    
-		
+
+
 						    var clr = " style = \"background: linear-gradient(to bottom right, rgb(" +red+","+green+","+blue+"), rgb(" +red1+","+green1+","+blue1+"))\" ";
 						    table += clr;
 						}
-						
+
 						table += ">"+newData;
 						theData = theData.substring(idx+1);
 						if(table.lastIndexOf("~") === table.length-1){
@@ -429,16 +440,16 @@ td:first-child + td + td + td+ td+ td+ td+ td+ td+ td{ font-weight: bold;} /* th
 					j = 1;
 				}
 
-			
-	
+
+
 		}
 		table += "</table>"
 		console.log(table);
 		document.getElementById("display").innerHTML = table;
-		
+
 	</script>
 
 
-	
+
 </body>
 </html>
