@@ -466,7 +466,32 @@
 
 for(var i = 0; i < pokemon[0].length; i++){
   if(tPokemon.indexOf(pokemon[0][i]) != -1){
-    document.getElementById("content").innerHTML="<br><br><br><br><h1>"+tPokemon+"</h1><br><br><br>";
+    var theContent = "<br><br><br><br><h1>"+tPokemon+"</h1><br>";
+    theContent += pokemon[1][i]+"&nbsp;&nbsp;"+pokemon[2][i];
+    theContent = theContent.replace(/Bug/g,"<img style=\"width: 64px\" src=\"Bug.png\">");
+    theContent = theContent.replace(/Dark/g,"<img style=\"width: 64px\" src=\"Dark.png\">");
+    theContent = theContent.replace(/Dragon/g,"<img style=\"width: 64px\" src=\"Dragon.png\">");
+    theContent = theContent.replace(/Electric/g,"<img style=\"width: 64px\" src=\"Electric.png\">");
+    theContent = theContent.replace(/Fairy/g,"<img style=\"width: 64px\" src=\"Fairy.png\">");
+    theContent = theContent.replace(/Fighting/g,"<img style=\"width: 64px\" src=\"Fighting.png\">");
+    theContent = theContent.replace(/Fire/g,"<img style=\"width: 64px\" src=\"Fire.png\">");
+    theContent = theContent.replace(/Flying/g,"<img style=\"width: 64px\" src=\"Flying.png\">");
+    theContent = theContent.replace(/Ghost/g,"<img style=\"width: 64px\" src=\"Ghost.png\">");
+    theContent = theContent.replace(/Ground/g,"<img style=\"width: 64px\" src=\"Ground.png\">");
+    theContent = theContent.replace(/Ice/g,"<img style=\"width: 64px\" src=\"Ice.png\">");
+    theContent = theContent.replace(/Normal/g,"<img style=\"width: 64px\"  src=\"Normal.png\">");
+    theContent = theContent.replace(/Poison/g,"<img style=\"width: 64px\" src=\"Poison.png\">");
+    theContent = theContent.replace(/Psychic/g,"<img style=\"width: 64px\" src=\"Psychic.png\">");
+    theContent = theContent.replace(/Rock/g,"<img style=\"width: 64px\" src=\"Rock.png\">");
+    theContent = theContent.replace(/Steel/g,"<img style=\"width: 64px\" src=\"Steel.png\">");
+    theContent = theContent.replace(/Water/g,"<img style=\"width: 64px\" src=\"Water.png\">");
+    theContent = theContent.replace(/Grass/g,"<img style=\"width: 64px\" src=\"Grass.png\">");
+    theContent += "<br><h3>"+pokemon[3][i]+" "+pokemon[4][i]+" "+pokemon[5][i];
+    theContent = theContent.replace(/-/g,">");
+    theContent += "</h3>";
+    document.getElementById("content").innerHTML=theContent;
+
+
   }
 }
 
