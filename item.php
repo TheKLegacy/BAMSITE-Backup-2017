@@ -45,7 +45,7 @@ input {
 	border: 2px solid #3086C2;
     border-radius: 4px;
 }
-h3 { 
+h3 {
     display: block;
     font-size: 26px;
     margin-bottom: 12px;
@@ -60,21 +60,21 @@ table.sortable thead {
     color:#666666;
     font-weight: bold;
     cursor: default;
-	
-	
+
+
 }
 
-table { 
+table {
 color: #333;
-font-family: Helvetica, Arial, sans-serif; 
-border-collapse: 
-collapse; border-spacing: 0; 
+font-family: Helvetica, Arial, sans-serif;
+border-collapse:
+collapse; border-spacing: 0;
 box-shadow: 12px 12px 7px #888888;
 }
 
-td, th { 
+td, th {
 border: 1px solid transparent; /* No more visible border */
-height: 30px; 
+height: 30px;
 transition: all 0.3s;  /* Simple transition for hover effect */
 }
 
@@ -93,11 +93,11 @@ text-align: center;
 
 
 
-/* Cells in even rows (2,4,6...) are one color */ 
-tr:nth-child(even) td { background: #EBEBF7; }   
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td { background: #EBEBF7; }
 
-/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */ 
-tr:nth-child(odd) td { background: #FEFEFE; }  
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+tr:nth-child(odd) td { background: #FEFEFE; }
 
 tr td:hover { background: #3086C2; color: #FFF; } /* Hover cell effect! */
 
@@ -139,10 +139,10 @@ li a.active {
 li a:hover:not(.active) {
     background-color: black;
     color: #3086C2;
-	
+
 	font-weight: bold;
 	background-image: linear-gradient(to bottom right, black 0%,white 200%), url('black.png');
-	
+
 }
 
 a:visited { color: #000000; text-decoration: none}
@@ -159,17 +159,17 @@ img: {
 
 .parallax {
     /* The image used */
-    
+
     background-image: url("img2.jpg");
     /* Set a specific height */
-    min-height: 500px; 
+    min-height: 500px;
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
+
 }
 </style>
 
@@ -197,11 +197,11 @@ img: {
 		<div id="display" width: 80%;">	<br><br><br><br></div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	<br><br><br><br></center>
 	</div></div>
 	<script>
-	
-	
-		var theData = <?php $url='https://docs.google.com/spreadsheets/d/e/2PACX-1vQze6QQywdWXeGwQBmGpsoZEa48HuBGW6kPDG7qu9T9S6egprBVsj9h5JzBNlmVladUAkUsmxBFdI1V/pub?gid=1468271958&single=true&output=csv'; 
+
+
+		var theData = <?php $url='https://docs.google.com/spreadsheets/d/e/2PACX-1vQze6QQywdWXeGwQBmGpsoZEa48HuBGW6kPDG7qu9T9S6egprBVsj9h5JzBNlmVladUAkUsmxBFdI1V/pub?gid=1468271958&single=true&output=csv';
 				if (($handle = fopen($url, "r")) !== FALSE) {
-					$result=""; 
+					$result="";
 					while (($data = fgetcsv($handle, 100000, ",")) !== FALSE){
 						$totalrows = count($data);
 						for ($row=0; $row<=$totalrows; $row++){
@@ -218,29 +218,41 @@ img: {
 		table += "<tr><th>Item</th><th>Description</th></tr>";
 		var idx = 0;
 		var j = 0;
+		idx = theData.indexOf("~");
+		theData = theData.substring(idx+1);
+		idx = theData.indexOf("~");;
+		theData = theData.substring(idx+1);
+		idx = theData.indexOf("~");
+		theData = theData.substring(idx+1);
+		var data2Add = "";
+		var data1Add = "";
 		while(theData.length > 0 ){
 			table+= "<tr>";
 			for(var i = 0; i < cols; i++){
-				
+
 				if(i === 0){
 					idx = theData.indexOf("~");
-					var img = theData.substring(0,idx);
+					data1Add = theData.substring(0,idx);
 					theData = theData.substring(idx+1);
 				}
 				else if (i === 1){
 					idx = theData.indexOf("~");
-					table+="<td>";
-					table += theData.substring(0,idx);
+
+					data2Add = theData.substring(0,idx);
 					theData = theData.substring(idx+1);
-					table+= "<img src = \"" + img + "\"/>";
-					table+="</td>";
+
 				}
 				else{
 					idx = theData.indexOf("~");
-					table+="<td>";
-					table += theData.substring(0,idx);
+					var img = theData.substring(0,idx);
 					theData = theData.substring(idx+1);
+					table+="<td>";
+					table+=data1Add;
+					table+= "<img src = \"" + img + "\"/>";
 					table+="</td>";
+					table+="<td>";
+						table+=data2Add;
+						table+="</td>";
 				}
 			}
 			table += "</tr>";
@@ -248,7 +260,7 @@ img: {
 		table += "</table>";
 		console.log(table);
 		document.getElementById("display").innerHTML = table;
-		
+
 	</script>
 
 <script>
