@@ -158,7 +158,7 @@
 
       background-image: url("monview.png");
       /* Set a specific height */
-      min-height: 500px;
+      min-height: 3000px;
 
       /* Create the parallax scrolling effect */
       background-attachment: fixed;
