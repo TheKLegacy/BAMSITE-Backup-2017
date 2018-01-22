@@ -349,10 +349,6 @@
      console.log(moves);
 
 
-
-
-
-
      var pokemonName = [];
      var type1 = [];
      var type2 = [];
@@ -463,9 +459,10 @@
      }
      allMovesets.push(moveset);
      pokemon.push(allMovesets);
-
+var pokeNum = 0;
 for(var i = 0; i < pokemon[0].length; i++){
   if(tPokemon.indexOf(pokemon[0][i]) != -1){
+    pokeNum=i;
     var theContent = "<br><br><br><br><h1>"+tPokemon+"</h1><br>";
     theContent += pokemon[1][i]+"&nbsp;&nbsp;"+pokemon[2][i];
     theContent = theContent.replace(/Bug/g,"<img style=\"width: 64px\" src=\"Bug.png\">");
@@ -490,8 +487,9 @@ for(var i = 0; i < pokemon[0].length; i++){
     theContent = theContent.replace(/\/ -/g,"");
     //stats
     var statsview = ["HP","Atk","Def","SpA","SpD","Spe"];
+    theContent += "</h4>";
     for(var j = 3; j < 9; j++){
-    theContent += "</h4><br><h5>"+statsview[j-3]+": "+pokemon[j][i];
+    theContent += "<h5>"+statsview[j-3]+": "+pokemon[j][i];
     var img = "red";
     if(pokemon[j][i] >= 70)
     img = "orange";
@@ -502,8 +500,47 @@ for(var i = 0; i < pokemon[0].length; i++){
     if(pokemon[j][i] >= 125)
     img = "blue";
     theContent+=" <img style=\" height: 16px; width: "+pokemon[j][i]*3+"\"px; src=\""+img+".png\">";
-
-  }
+    }
+    theContent += "<h4>Moves: </h4><table>"
+    for(i = 0; i < moves[0].length; i++){
+      for(j = 0; j < pokemon[13][pokeNum].length;j++){
+        if(pokemon[13][pokeNum][j].toLowerCase() == moves[0][i].toLowerCase()){
+          theContent+="<tr>";
+          theContent+="<td>"+moves[0][i]+"</td>";
+          var theType = moves[1][i];
+          var theCat = moves[2][i];
+          theType = theType.replace(/Bug/g,"<img src=\"Bug.png\">");
+          theType = theType.replace(/Dark/g,"<img src=\"Dark.png\">");
+          theType = theType.replace(/Dragon/g,"<img src=\"Dragon.png\">");
+          theType = theType.replace(/Electric/g,"<img src=\"Electric.png\">");
+          theType = theType.replace(/Fairy/g,"<img src=\"Fairy.png\">");
+          theType = theType.replace(/Fighting/g,"<img src=\"Fighting.png\">");
+          theType = theType.replace(/Fire/g,"<img src=\"Fire.png\">");
+          theType = theType.replace(/Flying/g,"<img src=\"Flying.png\">");
+          theType = theType.replace(/Ghost/g,"<img src=\"Ghost.png\">");
+          theType = theType.replace(/Ground/g,"<img src=\"Ground.png\">");
+          theType = theType.replace(/Ice/g,"<img src=\"Ice.png\">");
+          theType = theType.replace(/Normal/g,"<img src=\"Normal.png\">");
+          theType = theType.replace(/Poison/g,"<img src=\"Poison.png\">");
+          theType = theType.replace(/Psychic/g,"<img src=\"Psychic.png\">");
+          theType = theType.replace(/Rock/g,"<img src=\"Rock.png\">");
+          theType = theType.replace(/Steel/g,"<img src=\"Steel.png\">");
+          theType = theType.replace(/Water/g,"<img src=\"Water.png\">");
+          theType = theType.replace(/Grass/g,"<img src=\"Grass.png\">");
+          theCat = theCat.replace(/Physical/g,"<img src=\"Physical.png\">");
+          theCat = theCat.replace(/Special/g,"<img src=\"Special.png\">");
+          theCat = theCat.replace(/Status/g,"<img src=\"Status.png\">");
+          theContent+="<td>"+theType+"</td>";
+          theContent+="<td>"+theCat+"</td>";
+          theContent+="<td>"+moves[3][i]+"</td>";
+          theContent+="<td>"+moves[4][i]+"</td>";
+          theContent+="<td>"+moves[5][i]+"</td>";
+          theContent+="<td>"+moves[6][i]+"</td>";
+          theContent+="</tr>";
+        }
+      }
+    }
+    content+="</table>"
     document.getElementById("content").innerHTML=theContent;
 
 
