@@ -682,6 +682,24 @@ function updateStatText(x, sc, pn){
 
       //---------------------------------------------------------------------
 
+
+
+function importTeam(s){
+  for(i = 1; i < 7; i++){
+    fName = s.substring(0,s.indexOf("@"));
+    s = s.substring(s.indexOf("@")+1);
+    if (fName.indexOf("(") > -1){
+      document.getElementById("Nickname_"+i) = fName.substring(fName.indexOf("(")-1);
+      document.getElementById("Pokemon_"+i) = fName.substring(fName.indexOf("("+1),fName.indexOf(")"));
+    }else{
+      document.getElementById("Pokemon_"+i) = fName;
+    }
+
+  }
+}
+
+
+
 function exportTeam(){
 var finalTeam = '';
 var hasNick = false;
