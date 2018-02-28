@@ -685,16 +685,21 @@ function updateStatText(x, sc, pn){
 
 
 function importTeam(s){
+  s = s.replace(/(M))/g,"");
+  s = s.replace(/(F))/g,"");
   for(i = 1; i < 7; i++){
     fName = s.substring(0,s.indexOf("@"));
-    s = s.substring(s.indexOf("@")+1);
+    s = s.substring(s.indexOf("@")+2);
     if (fName.indexOf("(") > -1){
       document.getElementById("Nickname_"+i) = fName.substring(fName.indexOf("(")-1);
       document.getElementById("Pokemon_"+i) = fName.substring(fName.indexOf("("+1),fName.indexOf(")"));
     }else{
       document.getElementById("Pokemon_"+i) = fName;
     }
-
+    inItem = s.substring(0,s.indexOf("Ability:"));
+    s = s.substring(s.indexOf("Ability:")+1);
+    document.getElementById("Item_"+i) = inItem;
+    
   }
 }
 
