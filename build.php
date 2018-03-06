@@ -688,21 +688,21 @@ function importTeam(s){
   s = s.replace(/(M))/g,"");
   s = s.replace(/(F))/g,"");
   for(i = 1; i < 7; i++){
-    fName = s.substring(0,s.indexOf("@"));
-    s = s.substring(s.indexOf("@")+2);
-    if (fName.indexOf("(") > -1){
-      document.getElementById("Nickname_"+i) = fName.substring(fName.indexOf("(")-1);
-      document.getElementById("Pokemon_"+i) = fName.substring(fName.indexOf("("+1),fName.indexOf(")"));
-    }else{
-      document.getElementById("Pokemon_"+i) = fName;
+    str[] = s.split("\n");
+    for(j = 0; j < str.length; j++){
+      console.log(j);
     }
-    inItem = s.substring(0,s.indexOf("Ability:"));
-    s = s.substring(s.indexOf("Ability:")+1);
-    document.getElementById("Item_"+i) = inItem;
-    
   }
 }
 
+importTeam("Celesteela @ Leftovers
+Ability: Beast Boost
+EVs: 248 HP / 104 Def / 156 SpD
+Relaxed Nature
+- Leech Seed
+- Protect
+- Heavy Slam
+- Flamethrower");
 
 
 function exportTeam(){
