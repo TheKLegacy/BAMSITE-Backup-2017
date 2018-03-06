@@ -685,9 +685,11 @@ function updateStatText(x, sc, pn){
 
 
 function importTeam(s){
+  console.log("Attempting import");
   s = s.replace(/(M))/g,"");
   s = s.replace(/(F))/g,"");
   for(i = 1; i < 7; i++){
+    console.log("Starting import import");
     str[] = s.split("\n");
     for(j = 0; j < str.length; j++){
       console.log(j);
