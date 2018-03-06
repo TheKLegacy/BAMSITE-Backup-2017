@@ -836,15 +836,7 @@ document.getElementById("output").value = finalTeam;
        document.getElementById(cityName).style.display = "block";
        evt.currentTarget.className += " active";
    }
-   importTeam("Celesteela @ Leftovers
-   Ability: Beast Boost
-   EVs: 248 HP / 104 Def / 156 SpD
-   Relaxed Nature
-   - Leech Seed
-   - Protect
-   - Heavy Slam
-   - Flamethrower");
-console.log("runnign")
+
    </script>
 
    <style>
@@ -1713,7 +1705,18 @@ console.log("runnign")
    </div>
    </div>
 
-   <script>openCity(event, 'p1')</script>
+   <script>openCity(event, 'p1')
+   importTeam("Celesteela @ Leftovers
+   Ability: Beast Boost
+   EVs: 248 HP / 104 Def / 156 SpD
+   Relaxed Nature
+   - Leech Seed
+   - Protect
+   - Heavy Slam
+   - Flamethrower");
+console.log("runnign");
+
+   </script>
       <img id="bottom" src="bottom.png" alt="">
       <center><div id="table"></div></center>
 
