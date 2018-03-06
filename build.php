@@ -697,14 +697,7 @@ function importTeam(s){
   }
 }
 
-importTeam("Celesteela @ Leftovers
-Ability: Beast Boost
-EVs: 248 HP / 104 Def / 156 SpD
-Relaxed Nature
-- Leech Seed
-- Protect
-- Heavy Slam
-- Flamethrower");
+
 
 
 function exportTeam(){
@@ -843,8 +836,15 @@ document.getElementById("output").value = finalTeam;
        document.getElementById(cityName).style.display = "block";
        evt.currentTarget.className += " active";
    }
-
-
+   importTeam("Celesteela @ Leftovers
+   Ability: Beast Boost
+   EVs: 248 HP / 104 Def / 156 SpD
+   Relaxed Nature
+   - Leech Seed
+   - Protect
+   - Heavy Slam
+   - Flamethrower");
+console.log("runnign")
    </script>
 
    <style>
