@@ -679,26 +679,64 @@ function updateStatText(x, sc, pn){
   assignStatTotals();
 }
 
-
       //---------------------------------------------------------------------
 
-
-
 function importTeam(s){
-  console.log("Attempting import");
-  s = s.replace(/(M))/g,"");
-  s = s.replace(/(F))/g,"");
-  for(i = 1; i < 7; i++){
-    console.log("Starting import import");
-    str[] = s.split("\n");
-    for(j = 0; j < str.length; j++){
-      console.log(j);
+  s = s.replace("(M)","");
+  s = s.replace("(F)","");
+  str = s.split("\n");
+  moveLetter = "a";
+  pokeCntr = 0;
+  for(i = 0; i < str.length; i++){
+    if(str[i].indexOf "@" > -1){
+      pokeCntr++;
+      move = "a";
+      fName = str[i].substring(0,str[i].indexOf("@"));
+      str[i] = str[i].substring(str[i].indexOf("@")+2);
+      if (fName.indexOf("(") > -1){
+        document.getElementById("Nickname_"+i).value = fName.substring(fName.indexOf("(")-1);
+        document.getElementById("Pokemon_"+i).value = fName.substring(fName.indexOf("("+1),fName.indexOf(")"));
+      }else{
+        document.getElementById("Pokemon_"+i).value = fName;
+      }
+      document.getElementById("Item_"+i).value = str[i];
+    }
+    else if(str[i].indexOf "Ability:" > -1){
+      document.getElementById("Ability_"+i).value = str[i].substring(str[i].indexOf(":")+1);
+    }
+    else if(str[i].indexOf "EVs:" > -1){
+      evimport = str[i].substring("5").split("/");
+      for(j = 0; j < evimport.length; j++){
+        if(evimport[j].indexOf("HP") > 0){
+          document.getElementById("HP"+i).value = evimport[j].substring(evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("ATK") > 0){
+          document.getElementById("ATK"+i).value = evimport[j].substring(evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("DEF") > 0){
+          document.getElementById("DEF"+i).value = evimport[j].substring(evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("SPA") > 0){
+          document.getElementById("SPA"+i).value = evimport[j].substring(evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("SPD") > 0){
+          document.getElementById("SPD"+i).value = evimport[j].substring(evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("SPE") > 0){
+          document.getElementById("SPE"+i).value = evimport[j].substring(evimport[j].length-4);
+        }
+      }
+    }
+    else if(str[i].indexOf "-" > -1){
+      document.getElementById("Move"+i+moveLetter).value = str[i].substring(1);
+      moveLetter = String.fromCharCode(moveLetter.charCodeAt(0) + 1)
     }
   }
 }
 
 
-
+s = "Celesteela @ Leftovers\nAbility: Beast Boost\nEVs: 248 HP / 104 Def / 156 SpD\nRelaxed Nature\n- Leech Seed\n- Protect\n- Heavy Slam\n- Flamethrower"
+importTeam(s);
 
 function exportTeam(){
 var finalTeam = '';
@@ -1705,15 +1743,8 @@ document.getElementById("output").value = finalTeam;
    </div>
    </div>
 
-   <script>openCity(event, 'p1')
-   importTeam("Celesteela @ Leftovers
-   Ability: Beast Boost
-   EVs: 248 HP / 104 Def / 156 SpD
-   Relaxed Nature
-   - Leech Seed
-   - Protect
-   - Heavy Slam
-   - Flamethrower");
+   <script>openCity(event, 'p1');
+
 console.log("runnign");
 
    </script>
