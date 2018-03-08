@@ -688,7 +688,7 @@ function importTeam(s){
   moveLetter = "a";
   pokeCntr = 0;
   for(i = 0; i < str.length; i++){
-    if(str[i].indexOf "@" > -1){
+    if(str[i].indexOf("@")> -1){
       pokeCntr++;
       move = "a";
       fName = str[i].substring(0,str[i].indexOf("@"));
