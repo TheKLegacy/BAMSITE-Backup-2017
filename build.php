@@ -521,6 +521,7 @@ console.log(pokemon);
         var spamod = 1;
         var spdmod = 1;
         var spemod = 1;
+        console.log(pageNum);
         var thisNature = document.getElementById("Nature_"+pageNum).value;
         if(thisNature == "Adamant"){
           atkmod = 1.1;
@@ -611,6 +612,7 @@ console.log(pokemon);
         var base =parseFloat( pokemon[4][selectedPokemon[pageNum-1]]);
         var iv = parseFloat(document.getElementById("ATKIV"+pageNum).value);
         var ev= parseFloat(document.getElementById("ATK"+pageNum).value);
+        console.log(ev);
         document.getElementById("ATKTOTAL"+pageNum).innerHTML = parseInt(atkmod*mostStats(base,ev,iv));
         var base = parseFloat(pokemon[5][selectedPokemon[pageNum-1]]);
         var iv = parseFloat(document.getElementById("DEFIV"+pageNum).value);
@@ -649,6 +651,11 @@ function makeBorder(x){
 }
 
 function updateStatSlider(x, sc, pn){
+  console.log("----------------------");
+  console.log(x);
+  console.log(sc);
+  console.log(pn);
+  console.log("----------------------");
   var value = (x.value-1) * 4;
   var locStr = 0;
   switch(sc){
@@ -664,9 +671,13 @@ function updateStatSlider(x, sc, pn){
 }
 
 function updateStatText(x, sc, pn){
-          console.log("texting");
-  var value = x.value/4+1;
-  var locStr = 0;
+  console.log("----------------------");
+  console.log(x);
+  console.log(sc);
+  console.log(pn);
+  console.log("----------------------");
+  var value = x.value/4;
+  var locStr = "";
   switch(sc){
     case 1: locStr = "HP"; break;
     case 2: locStr = "ATK"; break;
@@ -690,53 +701,89 @@ function importTeam(s){
   for(i = 0; i < str.length; i++){
     if(str[i].indexOf("@")> -1){
       pokeCntr++;
+      pageNum = pokeCntr;
       move = "a";
       fName = str[i].substring(0,str[i].indexOf("@"));
       str[i] = str[i].substring(str[i].indexOf("@")+2);
       if (fName.indexOf("(") > -1){
-        document.getElementById("Nickname_"+i).value = fName.substring(fName.indexOf("(")-1);
-        document.getElementById("Pokemon_"+i).value = fName.substring(fName.indexOf("("+1),fName.indexOf(")"));
+        document.getElementById("Nickname_"+pokeCntr).value = fName.substring(fName.indexOf("(")-1);
+        document.getElementById("Pokemon_"+pokeCntr).value = fName.substring(fName.indexOf("("+1),fName.indexOf(")"));
       }else{
-        document.getElementById("Pokemon_"+i).value = fName;
+        document.getElementById("Pokemon_"+pokeCntr).value = fName;
       }
-      document.getElementById("Item_"+i).value = str[i];
+      document.getElementById("Item_"+pokeCntr).value = str[i];
     }
-    else if(str[i].indexOf "Ability:" > -1){
-      document.getElementById("Ability_"+i).value = str[i].substring(str[i].indexOf(":")+1);
+    else if(str[i].indexOf ("Ability:") > -1){
+      document.getElementById("Ability_"+pokeCntr).value = str[i].substring(str[i].indexOf(":")+1);
     }
-    else if(str[i].indexOf "EVs:" > -1){
+    else if(str[i].indexOf ("Nature") > -1){
+      document.getElementById("Nature_"+pokeCntr).value = str[i].substring(0,str[i].indexOf("Nature")-1);
+      assignStatTotals();
+    }
+    else if(str[i].indexOf ("EVs:") > -1){
       evimport = str[i].substring("5").split("/");
       for(j = 0; j < evimport.length; j++){
         if(evimport[j].indexOf("HP") > 0){
-          document.getElementById("HP"+i).value = evimport[j].substring(evimport[j].length-4);
+          document.getElementById("HP"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+          document.getElementById("HPSLIDER"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
         }
-        if(evimport[j].indexOf("ATK") > 0){
-          document.getElementById("ATK"+i).value = evimport[j].substring(evimport[j].length-4);
+        if(evimport[j].indexOf("Atk") > 0){
+          document.getElementById("ATK"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+          document.getElementById("ATKSLIDER"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
         }
-        if(evimport[j].indexOf("DEF") > 0){
-          document.getElementById("DEF"+i).value = evimport[j].substring(evimport[j].length-4);
+        if(evimport[j].indexOf("Def") > 0){
+          document.getElementById("DEF"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+          document.getElementById("DEFSLIDER"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
         }
-        if(evimport[j].indexOf("SPA") > 0){
-          document.getElementById("SPA"+i).value = evimport[j].substring(evimport[j].length-4);
+        if(evimport[j].indexOf("SpA") > 0){
+          document.getElementById("SPA"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+          document.getElementById("SPASLIDER"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
         }
-        if(evimport[j].indexOf("SPD") > 0){
-          document.getElementById("SPD"+i).value = evimport[j].substring(evimport[j].length-4);
+        if(evimport[j].indexOf("SpD") > 0){
+          document.getElementById("SPD"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+          document.getElementById("SPDSLIDER"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
         }
-        if(evimport[j].indexOf("SPE") > 0){
-          document.getElementById("SPE"+i).value = evimport[j].substring(evimport[j].length-4);
+        if(evimport[j].indexOf("Spe") > 0){
+          document.getElementById("SPE"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+          document.getElementById("SPESLIDER"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
         }
       }
+      assignStatTotals();
     }
-    else if(str[i].indexOf "-" > -1){
-      document.getElementById("Move"+i+moveLetter).value = str[i].substring(1);
+    else if(str[i].indexOf ("IVs:") > -1){
+      evimport = str[i].substring("5").split("/");
+      for(j = 0; j < evimport.length; j++){
+        if(evimport[j].indexOf("HP") > 0){
+          document.getElementById("HPIV"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);;
+        }
+        if(evimport[j].indexOf("Atk") > 0){
+          document.getElementById("ATKIV"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("Def") > 0){
+          document.getElementById("DEFIV"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("SpA") > 0){
+          document.getElementById("SPAIV"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("SpD") > 0){
+          document.getElementById("SPDIV"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+        }
+        if(evimport[j].indexOf("Spe") > 0){
+          document.getElementById("SPEIV"+pokeCntr).value = evimport[j].substring(0,evimport[j].length-4);
+        }
+      }
+      assignStatTotals();
+    }
+    else if(str[i].indexOf("-") > -1){
+      document.getElementById("Move"+pokeCntr+moveLetter).value = str[i].substring(1);
       moveLetter = String.fromCharCode(moveLetter.charCodeAt(0) + 1)
     }
   }
+
 }
 
 
-s = "Celesteela @ Leftovers\nAbility: Beast Boost\nEVs: 248 HP / 104 Def / 156 SpD\nRelaxed Nature\n- Leech Seed\n- Protect\n- Heavy Slam\n- Flamethrower"
-importTeam(s);
+
 
 function exportTeam(){
 var finalTeam = '';
@@ -847,19 +894,41 @@ for(i = 1; i < 7; i++){
 }
 }
 document.getElementById("output").value = finalTeam;
+return finalTeam;
 }
-
-
-
+hiddenTeam = ["",""];
+var teams = [hiddenTeam];
+if(localStorage.getItem("allTeams") == null){
+  localStorage.setItem("allTeams",JSON.stringify(teams));
+}
 
       //---------------------------------------------------------------------
    </script>
 
    <script>
+        console.log(JSON.parse(localStorage.getItem("allTeams")));
+   var aTeam = JSON.parse(localStorage.getItem("allTeams"));
+   currentTeamIdx = aTeam.length;
+   var teams = [];
+
+   for(i =0; i < aTeam.length; i++){
+     teams.push(aTeam[i]);
+   }
+   var newTeam = ["Unnamed Team",""];
+   teams.push(newTeam);
+   localStorage.setItem("allTeams",JSON.stringify(teams));
+    console.log(JSON.parse(localStorage.getItem("allTeams")));
 
    function openCity(evt, cityName) {
+     console.log(currentTeamIdx);
+     console.log(JSON.parse(localStorage.getItem("allTeams")));
+     var updatedteams = JSON.parse(localStorage.getItem("allTeams"));
+     updatedteams[currentTeamIdx][1] = exportTeam();
+    console.log(updatedteams[currentTeamIdx][1]);
+     localStorage.setItem("allTeams",JSON.stringify(updatedteams));
+      console.log(JSON.parse(localStorage.getItem("allTeams")));
      if(document.getElementById("table") != null)
-       document.getElementById("table").innerHTML = '';
+       document.getElementById("table").innerHTML = "";
      console.log(pageNum);
      pageNum = cityName.substring(1);
        var i, tabcontent, tablinks;
@@ -1005,7 +1074,7 @@ document.getElementById("output").value = finalTeam;
                            <tr>
                               <td> <label class="description" for="Evs_1">HP:</label> </td>
                               <td><input onkeyup="updateStatText(this,1,1)" id="HP1" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                              <td><input onmousemove="updateStatSlider(this,1,1)" type="range" min="1" max="64" value="1" id="HPSLIDER1"><br>
+                              <td><input oninput="updateStatSlider(this,1,1)"  type="range" min="1" max="64" value="1" id="HPSLIDER1"><br>
                               </td>
                               <td><input id="HPIV1" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                               <td><label class="description" for="Evs_1" id="HPTOTAL1"  value="" >0</label></td>
@@ -1013,7 +1082,7 @@ document.getElementById("output").value = finalTeam;
                            <tr>
                               <td>   <label class="description" for="Evs_1">Attack:</label></td>
                               <td><input onkeyup="updateStatText(this,2,1)" id="ATK1" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                              <td><input onmousemove="updateStatSlider(this,2,1)" type="range" min="1" max="64" value="1" id="ATKSLIDER1"><br></td>
+                              <td><input oninput="updateStatSlider(this,2,1)" type="range" min="1" max="64" value="1" id="ATKSLIDER1"><br></td>
                               <td><input id="ATKIV1" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                               <td><label class="description" for="Evs_1" id="ATKTOTAL1" value="" >0</label></td>
                            </tr>
@@ -1021,7 +1090,7 @@ document.getElementById("output").value = finalTeam;
                            <tr>
                               <td>     <label class="description" for="Evs_1">Defense</label></td>
                               <td><input onkeyup="updateStatText(this,3,1)" id="DEF1" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                              <td><input onmousemove="updateStatSlider(this,3,1)" type="range" min="1" max="64" value="1" id="DEFSLIDER1"><br></td>
+                              <td><input oninput="updateStatSlider(this,3,1)" type="range" min="1" max="64" value="1" id="DEFSLIDER1"><br></td>
                               <td><input id="DEFIV1" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                               <td><label class="description" for="Evs_1" id="DEFTOTAL1" value="" >0</label></td>
                            </tr>
@@ -1029,7 +1098,7 @@ document.getElementById("output").value = finalTeam;
                            <tr>
                               <td>    <label class="description" for="Evs_1">  Sp. Atk.</label></td>
                               <td><input onkeyup="updateStatText(this,4,1)"  id="SPA1" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                              <td><input onmousemove="updateStatSlider(this,4,1)" type="range" min="1" max="64" value="1" id="SPASLIDER1"><br></td>
+                              <td><input oninput="updateStatSlider(this,4,1)" type="range" min="1" max="64" value="1" id="SPASLIDER1"><br></td>
                               <td><input id="SPAIV1" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                               <td><label class="description" for="Evs_1" id="SPATOTAL1" value="" >0</label></td>
                            </tr>
@@ -1037,7 +1106,7 @@ document.getElementById("output").value = finalTeam;
                            <tr>
                               <td>     <label class="description" for="Evs_1"> Sp. Def.</label></td>
                               <td><input onkeyup="updateStatText(this,5,1)"  id="SPD1" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                              <td><input onmousemove="updateStatSlider(this,5,1)" id="SPD1" type="range" min="1" max="64" value="1"><br></td>
+                              <td><input oninput="updateStatSlider(this,5,1)" id="SPDSLIDER1" type="range" min="1" max="64" value="1"><br></td>
                               <td><input id="SPDIV1" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                               <td><label class="description" for="Evs_1" id="SPDTOTAL1" value="" >0</label></td>
                            </tr>
@@ -1045,7 +1114,7 @@ document.getElementById("output").value = finalTeam;
                            <tr>
                               <td>      <label class="description" for="Evs_1"> Speed</label></td>
                               <td><input onkeyup="updateStatText(this,6,1)"  id="SPE1" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                              <td><input onmousemove="updateStatSlider(this,6,1)" type="range" id="SPESLIDER1" min="1" max="64" value="1">
+                              <td><input oninput="updateStatSlider(this,6,1)" type="range" id="SPESLIDER1" min="1" max="64" value="1">
                               </td>
                               <td><input id="SPEIV1" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                               <td><label class="description" for="Evs_1" id="SPETOTAL1" value="" >0</label></td>
@@ -1140,7 +1209,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td> <label class="description" for="Evs_2">HP:</label> </td>
                              <td><input onkeyup="updateStatText(this,1,2)" id="HP2" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,1,2)" type="range" min="1" max="64" value="1" id="HPSLIDER2"><br>
+                             <td><input oninput="updateStatSlider(this,1,2)" type="range" min="1" max="64" value="1" id="HPSLIDER2"><br>
                              </td>
                              <td><input id="HPIV2" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_2" id="HPTOTAL2"  value="" >0</label></td>
@@ -1148,7 +1217,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>   <label class="description" for="Evs_2">Attack:</label></td>
                              <td><input onkeyup="updateStatText(this,2,2)" id="ATK2" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,2,2)" type="range" min="1" max="64" value="1" id="ATKSLIDER2"><br></td>
+                             <td><input oninput="updateStatSlider(this,2,2)" type="range" min="1" max="64" value="1" id="ATKSLIDER2"><br></td>
                              <td><input id="ATKIV2" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_2" id="ATKTOTAL2" value="" >0</label></td>
                           </tr>
@@ -1156,7 +1225,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_2">Defense</label></td>
                              <td><input onkeyup="updateStatText(this,3,2)" id="DEF2" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,3,2)" type="range" min="1" max="64" value="1" id="DEFSLIDER2"><br></td>
+                             <td><input oninput="updateStatSlider(this,3,2)" type="range" min="1" max="64" value="1" id="DEFSLIDER2"><br></td>
                              <td><input id="DEFIV2" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_2" id="DEFTOTAL2" value="" >0</label></td>
                           </tr>
@@ -1164,7 +1233,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>    <label class="description" for="Evs_2">  Sp. Atk.</label></td>
                              <td><input onkeyup="updateStatText(this,4,2)"  id="SPA2" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,4,2)" type="range" min="1" max="64" value="1" id="SPASLIDER2"><br></td>
+                             <td><input oninput="updateStatSlider(this,4,2)" type="range" min="1" max="64" value="1" id="SPASLIDER2"><br></td>
                              <td><input id="SPAIV2" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_2" id="SPATOTAL2" value="" >0</label></td>
                           </tr>
@@ -1172,7 +1241,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_2"> Sp. Def.</label></td>
                              <td><input onkeyup="updateStatText(this,5,2)"  id="SPD2" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,5,2)" id="SPD2" type="range" min="1" max="64" value="1"><br></td>
+                             <td><input oninput="updateStatSlider(this,5,2)" id="SPDSLIDER2" type="range" min="1" max="64" value="1"><br></td>
                              <td><input id="SPDIV2" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_2" id="SPDTOTAL2" value="" >0</label></td>
                           </tr>
@@ -1180,7 +1249,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>      <label class="description" for="Evs_2"> Speed</label></td>
                              <td><input onkeyup="updateStatText(this,6,2)"  id="SPE2" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,6,2)" type="range" id="SPESLIDER2" min="1" max="64" value="1">
+                             <td><input oninput="updateStatSlider(this,6,2)" type="range" id="SPESLIDER2" min="1" max="64" value="1">
                              </td>
                              <td><input id="SPEIV2" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_2" id="SPETOTAL2" value="" >0</label></td>
@@ -1280,7 +1349,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td> <label class="description" for="Evs_3">HP:</label> </td>
                              <td><input onkeyup="updateStatText(this,1,3)" id="HP3" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,1,3)" type="range" min="1" max="64" value="1" id="HPSLIDER3"><br>
+                             <td><input oninput="updateStatSlider(this,1,3)" type="range" min="1" max="64" value="1" id="HPSLIDER3"><br>
                              </td>
                              <td><input id="HPIV3" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_3" id="HPTOTAL3"  value="" >0</label></td>
@@ -1288,7 +1357,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>   <label class="description" for="Evs_3">Attack:</label></td>
                              <td><input onkeyup="updateStatText(this,2,3)" id="ATK3" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,2,3)" type="range" min="1" max="64" value="1" id="ATKSLIDER3"><br></td>
+                             <td><input oninput="updateStatSlider(this,2,3)" type="range" min="1" max="64" value="1" id="ATKSLIDER3"><br></td>
                              <td><input id="ATKIV3" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_3" id="ATKTOTAL3" value="" >0</label></td>
                           </tr>
@@ -1296,7 +1365,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_3">Defense</label></td>
                              <td><input onkeyup="updateStatText(this,3,3)" id="DEF3" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,3,3)" type="range" min="1" max="64" value="1" id="DEFSLIDER3"><br></td>
+                             <td><input oninput="updateStatSlider(this,3,3)" type="range" min="1" max="64" value="1" id="DEFSLIDER3"><br></td>
                              <td><input id="DEFIV3" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_3" id="DEFTOTAL3" value="" >0</label></td>
                           </tr>
@@ -1304,7 +1373,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>    <label class="description" for="Evs_3">  Sp. Atk.</label></td>
                              <td><input onkeyup="updateStatText(this,4,3)"  id="SPA3" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,4,3)" type="range" min="1" max="64" value="1" id="SPASLIDER3"><br></td>
+                             <td><input oninput="updateStatSlider(this,4,3)" type="range" min="1" max="64" value="1" id="SPASLIDER3"><br></td>
                              <td><input id="SPAIV3" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_1" id="SPATOTAL3" value="" >0</label></td>
                           </tr>
@@ -1312,7 +1381,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_3"> Sp. Def.</label></td>
                              <td><input onkeyup="updateStatText(this,5,3)"  id="SPD3" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,5,3)" id="SPD3" type="range" min="1" max="64" value="1"><br></td>
+                             <td><input oninput="updateStatSlider(this,5,3)" id="SPDSLIDER3" type="range" min="1" max="64" value="1"><br></td>
                              <td><input id="SPDIV3" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_3" id="SPDTOTAL3" value="" >0</label></td>
                           </tr>
@@ -1320,7 +1389,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>      <label class="description" for="Evs_3"> Speed</label></td>
                              <td><input onkeyup="updateStatText(this,6,3)"  id="SPE3" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,6,3)" type="range" id="SPESLIDER3" min="1" max="64" value="1">
+                             <td><input oninput="updateStatSlider(this,6,3)" type="range" id="SPESLIDER3" min="1" max="64" value="1">
                              </td>
                              <td><input id="SPEIV3" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_3" id="SPETOTAL3" value="" >0</label></td>
@@ -1415,7 +1484,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td> <label class="description" for="Evs_4">HP:</label> </td>
                              <td><input onkeyup="updateStatText(this,1,4)" id="HP4" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,1,4)" type="range" min="1" max="64" value="1" id="HPSLIDER4"><br>
+                             <td><input oninput="updateStatSlider(this,1,4)" type="range" min="1" max="64" value="1" id="HPSLIDER4"><br>
                              </td>
                              <td><input id="HPIV4" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_4" id="HPTOTAL4"  value="" >0</label></td>
@@ -1423,7 +1492,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>   <label class="description" for="Evs_4">Attack:</label></td>
                              <td><input onkeyup="updateStatText(this,2,4)" id="ATK4" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,2,4)" type="range" min="1" max="64" value="1" id="ATKSLIDER4"><br></td>
+                             <td><input oninput="updateStatSlider(this,2,4)" type="range" min="1" max="64" value="1" id="ATKSLIDER4"><br></td>
                              <td><input id="ATKIV4" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_4" id="ATKTOTAL4" value="" >0</label></td>
                           </tr>
@@ -1431,7 +1500,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_4">Defense</label></td>
                              <td><input onkeyup="updateStatText(this,3,4)" id="DEF4" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,3,4)" type="range" min="1" max="64" value="1" id="DEFSLIDER4"><br></td>
+                             <td><input oninput="updateStatSlider(this,3,4)" type="range" min="1" max="64" value="1" id="DEFSLIDER4"><br></td>
                              <td><input id="DEFIV4" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_4" id="DEFTOTAL4" value="" >0</label></td>
                           </tr>
@@ -1439,7 +1508,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>    <label class="description" for="Evs_4">  Sp. Atk.</label></td>
                              <td><input onkeyup="updateStatText(this,4,4)"  id="SPA4" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,4,4)" type="range" min="1" max="64" value="1" id="SPASLIDER4"><br></td>
+                             <td><input oninput="updateStatSlider(this,4,4)" type="range" min="1" max="64" value="1" id="SPASLIDER4"><br></td>
                              <td><input id="SPAIV4" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_4" id="SPATOTAL4" value="" >0</label></td>
                           </tr>
@@ -1447,7 +1516,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_4"> Sp. Def.</label></td>
                              <td><input onkeyup="updateStatText(this,5,4)"  id="SPD4" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,5,4)" id="SPD4" type="range" min="1" max="64" value="1"><br></td>
+                             <td><input oninput="updateStatSlider(this,5,4)" id="SPDSLIDER4" type="range" min="1" max="64" value="1"><br></td>
                              <td><input id="SPDIV4" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_4" id="SPDTOTAL4" value="" >0</label></td>
                           </tr>
@@ -1455,7 +1524,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>      <label class="description" for="Evs_4"> Speed</label></td>
                              <td><input onkeyup="updateStatText(this,6,4)"  id="SPE4" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,6,4)" type="range" id="SPESLIDER4" min="1" max="64" value="1">
+                             <td><input oninput="updateStatSlider(this,6,4)" type="range" id="SPESLIDER4" min="1" max="64" value="1">
                              </td>
                              <td><input id="SPEIV4" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_4" id="SPETOTAL4" value="" >0</label></td>
@@ -1548,7 +1617,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td> <label class="description" for="Evs_5">HP:</label> </td>
                              <td><input onkeyup="updateStatText(this,1,5)" id="HP5" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,1,5)" type="range" min="1" max="64" value="1" id="HPSLIDER5"><br>
+                             <td><input oninput="updateStatSlider(this,1,5)" type="range" min="1" max="64" value="1" id="HPSLIDER5"><br>
                              </td>
                              <td><input id="HPIV5" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_5" id="HPTOTAL5"  value="" >0</label></td>
@@ -1556,7 +1625,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>   <label class="description" for="Evs_5">Attack:</label></td>
                              <td><input onkeyup="updateStatText(this,2,5)" id="ATK5" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,2,5)" type="range" min="1" max="64" value="1" id="ATKSLIDER5"><br></td>
+                             <td><input oninput="updateStatSlider(this,2,5)" type="range" min="1" max="64" value="1" id="ATKSLIDER5"><br></td>
                              <td><input id="ATKIV5" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_5" id="ATKTOTAL5" value="" >0</label></td>
                           </tr>
@@ -1564,7 +1633,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_5">Defense</label></td>
                              <td><input onkeyup="updateStatText(this,3,5)" id="DEF5" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,3,5)" type="range" min="1" max="64" value="1" id="DEFSLIDER5"><br></td>
+                             <td><input oninput="updateStatSlider(this,3,5)" type="range" min="1" max="64" value="1" id="DEFSLIDER5"><br></td>
                              <td><input id="DEFIV5" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_5" id="DEFTOTAL5" value="" >0</label></td>
                           </tr>
@@ -1572,7 +1641,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>    <label class="description" for="Evs_5">  Sp. Atk.</label></td>
                              <td><input onkeyup="updateStatText(this,4,5)"  id="SPA5" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,4,5)" type="range" min="1" max="64" value="1" id="SPASLIDER5"><br></td>
+                             <td><input oninput="updateStatSlider(this,4,5)" type="range" min="1" max="64" value="1" id="SPASLIDER5"><br></td>
                              <td><input id="SPAIV5" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_5" id="SPATOTAL5" value="" >0</label></td>
                           </tr>
@@ -1580,7 +1649,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_5"> Sp. Def.</label></td>
                              <td><input onkeyup="updateStatText(this,5,5)"  id="SPD5" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,5,5)" id="SPD5" type="range" min="1" max="64" value="1"><br></td>
+                             <td><input oninput="updateStatSlider(this,5,5)" id="SPDSLIDER5" type="range" min="1" max="64" value="1"><br></td>
                              <td><input id="SPDIV5" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_5" id="SPDTOTAL5" value="" >0</label></td>
                           </tr>
@@ -1588,7 +1657,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>      <label class="description" for="Evs_5"> Speed</label></td>
                              <td><input onkeyup="updateStatText(this,6,5)"  id="SPE5" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,6,5)" type="range" id="SPESLIDER5" min="1" max="64" value="1">
+                             <td><input oninput="updateStatSlider(this,6,5)" type="range" id="SPESLIDER5" min="1" max="64" value="1">
                              </td>
                              <td><input id="SPEIV5" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_5" id="SPETOTAL5" value="" >0</label></td>
@@ -1681,7 +1750,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td> <label class="description" for="Evs_6">HP:</label> </td>
                              <td><input onkeyup="updateStatText(this,1,6)" id="HP6" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,1,6)" type="range" min="1" max="64" value="1" id="HPSLIDER6"><br>
+                             <td><input oninput="updateStatSlider(this,1,6)" type="range" min="1" max="64" value="1" id="HPSLIDER6"><br>
                              </td>
                              <td><input id="HPIV6" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_6" id="HPTOTAL6"  value="" >0</label></td>
@@ -1689,7 +1758,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>   <label class="description" for="Evs_6">Attack:</label></td>
                              <td><input onkeyup="updateStatText(this,2,6)" id="ATK6" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,2,6)" type="range" min="1" max="64" value="1" id="ATKSLIDER6"><br></td>
+                             <td><input oninput="updateStatSlider(this,2,6)" type="range" min="1" max="64" value="1" id="ATKSLIDER6"><br></td>
                              <td><input id="ATKIV6" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_6" id="ATKTOTAL6" value="" >0</label></td>
                           </tr>
@@ -1697,7 +1766,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_6">Defense</label></td>
                              <td><input onkeyup="updateStatText(this,3,6)" id="DEF6" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,3,6)" type="range" min="1" max="64" value="1" id="DEFSLIDER6"><br></td>
+                             <td><input oninput="updateStatSlider(this,3,6)" type="range" min="1" max="64" value="1" id="DEFSLIDER6"><br></td>
                              <td><input id="DEFIV6" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_6" id="DEFTOTAL6" value="" >0</label></td>
                           </tr>
@@ -1705,7 +1774,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>    <label class="description" for="Evs_6">  Sp. Atk.</label></td>
                              <td><input onkeyup="updateStatText(this,4,6)"  id="SPA6" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,4,6)" type="range" min="1" max="64" value="1" id="SPASLIDER6"><br></td>
+                             <td><input oninput="updateStatSlider(this,4,6)" type="range" min="1" max="64" value="1" id="SPASLIDER6"><br></td>
                              <td><input id="SPAIV6" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_6" id="SPATOTAL6" value="" >0</label></td>
                           </tr>
@@ -1713,7 +1782,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>     <label class="description" for="Evs_6"> Sp. Def.</label></td>
                              <td><input onkeyup="updateStatText(this,5,6)"  id="SPD6" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,5,6)" id="SPD6" type="range" min="1" max="64" value="1"><br></td>
+                             <td><input oninput="updateStatSlider(this,5,6)" id="SPDSLIDER6" type="range" min="1" max="64" value="1"><br></td>
                              <td><input id="SPDIV6" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_6" id="SPDTOTAL6" value="" >0</label></td>
                           </tr>
@@ -1721,7 +1790,7 @@ document.getElementById("output").value = finalTeam;
                           <tr>
                              <td>      <label class="description" for="Evs_6"> Speed</label></td>
                              <td><input onkeyup="updateStatText(this,6,6)"  id="SPE6" name="element_7" class="element text small" type="text" maxlength="3" value="0"/></td>
-                             <td><input onmousemove="updateStatSlider(this,6,6)" type="range" id="SPESLIDER1" min="1" max="64" value="1">
+                             <td><input oninput="updateStatSlider(this,6,6)" type="range" id="SPESLIDER1" min="1" max="64" value="1">
                              </td>
                              <td><input id="SPEIV6" name="element_7" class="element text small" type="text" maxlength="2" value="31"/></td>
                              <td><label class="description" for="Evs_6" id="SPETOTAL6" value="" >0</label></td>
@@ -1734,20 +1803,107 @@ document.getElementById("output").value = finalTeam;
               </table>
            </form>
          </div>
+         <style>
+         .dropbtn {
+             background-color: #3498DB;
+             color: white;
+             padding: 16px;
+             font-size: 16px;
+             border: none;
+             cursor: pointer;
+         }
 
+         .dropbtn:hover, .dropbtn:focus {
+             background-color: #2980B9;
+         }
+
+         .dropdown {
+             position: relative;
+             display: inline-block;
+         }
+
+         .dropdown-content {
+             display: none;
+             position: absolute;
+             background-color: #f1f1f1;
+             min-width: 160px;
+             overflow: auto;
+             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+             z-index: 1;
+         }
+
+         .dropdown-content a {
+             color: black;
+             padding: 12px 16px;
+             text-decoration: none;
+             display: block;
+         }
+
+         .dropdown a:hover {background-color: #ddd}
+
+         .show {display:block;}
+         </style>
    <div id="p7" class="tabcontent">
      <form id="form_64191">
+       <table><tr><td>
        <button type="button" class="tablinks" onclick="exportTeam()">Export to text</button><br><br>
-       <textarea id="output" cols="30" rows="20"></textarea>
+       <textarea id="output" cols="30" rows="25"></textarea>
+     </td><td>
+       <div class="dropdown">
+         <div onclick="viewTeams()" class="dropbtn">Load Team</div>
+         <div id="myDropdown" class="dropdown-content">
+           test
+        </div>
+      </div>
+
+     </td></tr></table>
      </form>
    </div>
    </div>
-
+<script>
+s = "Celesteela @ Leftovers\nAbility: Beast Boost\nEVs: 248 HP / 104 Def / 156 SpD\nRelaxed Nature\n- Leech Seed\n- Protect\n- Heavy Slam\n- Flamethrower"
+importTeam(s);
+</script>
    <script>openCity(event, 'p1');
 
 console.log("runnign");
 
    </script>
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function loadTeam(i){
+  currentTeamIdx = i;
+  importTeam(JSON.parse(localStorage.getItem("allTeams"))[i][1]);
+}
+
+function viewTeams() {
+    console.log(JSON.parse(localStorage.getItem("allTeams")));
+    var teams = JSON.parse(localStorage.getItem("allTeams"));
+    document.getElementById("myDropdown").innerHTML = "";
+    for(var i = 0; i < teams.length; i++){
+      document.getElementById("myDropdown").innerHTML += "<p onclick=\"loadTeam("+i+")\">"+ teams[i][0]+ "</p>" ;
+    }
+    console.log(document.getElementById("myDropdown").innerHTML);
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
       <img id="bottom" src="bottom.png" alt="">
       <center><div id="table"></div></center>
 
