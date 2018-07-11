@@ -775,10 +775,18 @@ function importTeam(s){
       assignStatTotals();
     }
     else if(str[i].indexOf("-") > -1){
-      document.getElementById("Move"+pokeCntr+moveLetter).value = str[i].substring(1);
+      document.getElementById("Move"+pokeCntr+moveLetter).value = str[i].substring(2);
       moveLetter = String.fromCharCode(moveLetter.charCodeAt(0) + 1)
     }
   }
+
+openCity(event, 'p7');
+openCity(event, 'p6');
+openCity(event, 'p5');
+openCity(event, 'p4');
+openCity(event, 'p3');
+openCity(event, 'p2');
+openCity(event, 'p1');
 
 }
 
@@ -1861,8 +1869,7 @@ if(localStorage.getItem("allTeams") == null){
    </div>
    </div>
 <script>
-s = "Celesteela @ Leftovers\nAbility: Beast Boost\nEVs: 248 HP / 104 Def / 156 SpD\nRelaxed Nature\n- Leech Seed\n- Protect\n- Heavy Slam\n- Flamethrower"
-importTeam(s);
+
 </script>
    <script>openCity(event, 'p1');
 
@@ -1875,6 +1882,8 @@ console.log("runnign");
 toggle between hiding and showing the dropdown content */
 function loadTeam(i){
   currentTeamIdx = i;
+  console.log(i);
+  console.log(JSON.parse(localStorage.getItem("allTeams"))[i][1]);
   importTeam(JSON.parse(localStorage.getItem("allTeams"))[i][1]);
 }
 
